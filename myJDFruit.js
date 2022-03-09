@@ -67,6 +67,9 @@ if (WP_APP_TOKEN_ONE) {
 } else
     console.log(`检测到未配置Wxpusher的Token，禁用一对一推送...`); */
 let lnrun=0;
+
+var fruitInfo;
+
 !(async () => {
 
   await requireConfig();
@@ -99,6 +102,8 @@ let lnrun=0;
           subTitle = '';
           option = {};
           $.retry = 0;
+          fruitInfo = new Object();
+          fruitInfo.index = $.index;
 
           lnrun++;
           await jdFruit();
@@ -108,10 +113,8 @@ let lnrun=0;
               lnrun = 0;
           }
 
-          var fruitInfo = new Object();
-          fruitInfo.index = $.index;
-          fruitInfo.nickName = $.nickName;
-          fruitInfo.totalEnergy = $.farmInfo.farmUserPro.totalEnergy;
+          // fruitInfo.nickName = $.nickName;
+          // fruitInfo.totalEnergy = $.farmInfo.farmUserPro.totalEnergy;
           fruitInfo.message = message;
           mqttMsg.sendMqttFruitInfo(JSON.stringify(fruitInfo),fruitInfo.index);
 
@@ -131,10 +134,16 @@ async function jdFruit() {
   subTitle = `【京东账号${$.index}】${$.nickName || $.UserName}`;
   try {
     await initForFarm();
+    fruitInfo.nickName = $.nickName;
     if ($.farmInfo.farmUserPro) {
       message = `【水果名称】${$.farmInfo.farmUserPro.name}\n`;
       console.log(`\n【已成功兑换水果】${$.farmInfo.farmUserPro.winTimes}次\n`);
       message += `【已兑换水果】${$.farmInfo.farmUserPro.winTimes}次\n`;
+
+      fruitInfo.fruitName = $.farmInfo.farmUserPro.name;
+      fruitInfo.winTimes = $.farmInfo.farmUserPro.winTimes;
+
+
     //   await masterHelpShare();//助力好友
       if ($.farmInfo.treeState === 2 || $.farmInfo.treeState === 3) {
         option['open-url'] = urlSchema;
@@ -190,6 +199,11 @@ async function predictionFruit() {
   message += `【今日共浇水】${waterEveryDayT}次\n`;
   message += `【剩余 水滴】${$.farmInfo.farmUserPro.totalEnergy}g💧\n`;
   message += `【水果🍉进度】${(($.farmInfo.farmUserPro.treeEnergy / $.farmInfo.farmUserPro.treeTotalEnergy) * 100).toFixed(2)}%，已浇水${$.farmInfo.farmUserPro.treeEnergy / 10}次,还需${($.farmInfo.farmUserPro.treeTotalEnergy - $.farmInfo.farmUserPro.treeEnergy) / 10}次\n`
+  fruitInfo.timeOfWaterToday = waterEveryDayT;
+  fruitInfo.totalEnergy = $.farmInfo.farmUserPro.totalEnergy;
+  fruitInfo.timeOfwaterTotal = $.farmInfo.farmUserPro.treeEnergy / 10;
+  fruitInfo.timeOfwaterLeft = ($.farmInfo.farmUserPro.treeTotalEnergy - $.farmInfo.farmUserPro.treeEnergy) / 10;
+
   if ($.farmInfo.toFlowTimes > ($.farmInfo.farmUserPro.treeEnergy / 10)) {
     message += `【开花进度】再浇水${$.farmInfo.toFlowTimes - $.farmInfo.farmUserPro.treeEnergy / 10}次开花\n`
   } else if ($.farmInfo.toFruitTimes > ($.farmInfo.farmUserPro.treeEnergy / 10)) {
@@ -201,6 +215,8 @@ async function predictionFruit() {
   let waterD = Math.ceil(waterTotalT / waterEveryDayT);
 
   message += `【预测】${waterD === 1 ? '明天' : waterD === 2 ? '后天' : waterD + '天之后'}(${timeFormat(24 * 60 * 60 * 1000 * waterD + Date.now())}日)可兑换水果🍉`
+
+  fruitInfo.waterDayLeft = waterD;
 }
 
 
