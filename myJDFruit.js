@@ -199,10 +199,10 @@ async function predictionFruit() {
   message += `【今日共浇水】${waterEveryDayT}次\n`;
   message += `【剩余 水滴】${$.farmInfo.farmUserPro.totalEnergy}g💧\n`;
   message += `【水果🍉进度】${(($.farmInfo.farmUserPro.treeEnergy / $.farmInfo.farmUserPro.treeTotalEnergy) * 100).toFixed(2)}%，已浇水${$.farmInfo.farmUserPro.treeEnergy / 10}次,还需${($.farmInfo.farmUserPro.treeTotalEnergy - $.farmInfo.farmUserPro.treeEnergy) / 10}次\n`
-  fruitInfo.timeOfWaterToday = waterEveryDayT;
+  fruitInfo.TimeOfWaterToday = waterEveryDayT;
   fruitInfo.totalEnergy = $.farmInfo.farmUserPro.totalEnergy;
-  fruitInfo.timeOfwaterTotal = $.farmInfo.farmUserPro.treeEnergy / 10;
-  fruitInfo.timeOfwaterLeft = ($.farmInfo.farmUserPro.treeTotalEnergy - $.farmInfo.farmUserPro.treeEnergy) / 10;
+  fruitInfo.TimeOfWaterTotal = $.farmInfo.farmUserPro.treeEnergy / 10;
+  fruitInfo.TimeOfWaterLeft = ($.farmInfo.farmUserPro.treeTotalEnergy - $.farmInfo.farmUserPro.treeEnergy) / 10;
 
   if ($.farmInfo.toFlowTimes > ($.farmInfo.farmUserPro.treeEnergy / 10)) {
     message += `【开花进度】再浇水${$.farmInfo.toFlowTimes - $.farmInfo.farmUserPro.treeEnergy / 10}次开花\n`
