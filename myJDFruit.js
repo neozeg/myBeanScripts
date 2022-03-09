@@ -1,29 +1,20 @@
 /*
-东东水果:脚本更新地址 https://gitee.com/lxk0301/jd_scripts/raw/master/jd_fruit.js
-更新时间：2021-8-20
-活动入口：京东APP我的-更多工具-东东农场
-东东农场活动链接：https://h5.m.jd.com/babelDiy/Zeus/3KSjXqQabiTuD1cJ28QskrpWoBKT/index.html
-已支持IOS双京东账号,Node.js支持N个京东账号
-脚本兼容: QuantumultX, Surge, Loon, JSBox, Node.js
-互助码shareCode请先手动运行脚本查看打印可看到
-一天只能帮助3个人。多出的助力码无效
-
-==========================Quantumultx=========================
+============Quantumultx===============
 [task_local]
-#jd免费水果
-35 6-18/6 * * * https://gitee.com/lxk0301/jd_scripts/raw/master/jd_fruit.js, tag=东东农场, img-url=https://raw.githubusercontent.com/58xinian/icon/master/jdnc.png, enabled=true
-=========================Loon=============================
+#my东东农场
+36 6-18/6 * * * myBeanInfo.js, tag=my东东农场, img-url=, enabled=true
+
+================Loon==============
 [Script]
-cron "35 6-18/6 * * *" script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_fruit.js,tag=东东农场
+cron "36 6-18/6 * * *" script-path=myBeanInfo.js, tag=my东东农场
 
-=========================Surge============================
-东东农场 = type=cron,cronexp="35 6-18/6 * * *",wake-system=1,timeout=3600,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_fruit.js
+===============Surge=================
+my东东农场 = type=cron,cronexp="36 6-18/6 * * *",wake-system=1,timeout=3600,script-path=myBeanInfo.js
 
-=========================小火箭===========================
-东东农场 = type=cron,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_fruit.js, cronexpr="35 6-18/6 * * *", timeout=3600, enable=true
+============小火箭=========
+my东东农场= type=cron,script-path=myBeanInfo.js, cronexpr="36 6-18/6 * * *", timeout=3600, enable=true
+ */
 
-jd免费水果 搬的https://github.com/liuxiaoyucc/jd-helper/blob/a6f275d9785748014fc6cca821e58427162e9336/fruit/fruit.js
-*/
 const $ = new Env('my东东农场');
 let cookiesArr = [], cookie = '', isBox = false, notify,allMessage = '';
 //助力好友分享码(最多3个,否则后面的助力失败),原因:京东农场每人每天只有3次助力机会

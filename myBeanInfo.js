@@ -1,20 +1,19 @@
 /*
-==========================Quantumultx=========================
+============Quantumultx===============
 [task_local]
-#jd免费水果
-5 * * * * https://gitee.com/lxk0301/jd_scripts/raw/master/jd_fruit.js, tag=东东农场, img-url=https://raw.githubusercontent.com/58xinian/icon/master/jdnc.png, enabled=true
-=========================Loon=============================
+#my京东详情
+2 * * * * myBeanInfo.js, tag=my京东详情, img-url=, enabled=true
+
+================Loon==============
 [Script]
-cron "5 * * * *" script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_fruit.js,tag=东东农场
+cron "2 * * * *" script-path=myBeanInfo.js, tag=my京东详情
 
-=========================Surge============================
-东东农场 = type=cron,cronexp="5 * * * *",wake-system=1,timeout=3600,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_fruit.js
+===============Surge=================
+my京东详情 = type=cron,cronexp="2 * * * *",wake-system=1,timeout=3600,script-path=myBeanInfo.js
 
-=========================小火箭===========================
-东东农场 = type=cron,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_fruit.js, cronexpr="5 * * * *", timeout=3600, enable=true
-
-jd免费水果 搬的https://github.com/liuxiaoyucc/jd-helper/blob/a6f275d9785748014fc6cca821e58427162e9336/fruit/fruit.js
-*/
+============小火箭=========
+my京东详情= type=cron,script-path=myBeanInfo.js, cronexpr="2 * * * *", timeout=3600, enable=true
+ */
 
 const $ = new Env('my京东详情');
 const notify = $.isNode() ? require('./sendNotify') : '';
