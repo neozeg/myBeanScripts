@@ -1,4 +1,4 @@
-const $ = new Env('My Bean Info');
+const $ = new Env('my京东详情');
 const notify = $.isNode() ? require('./sendNotify') : '';
 const mqttMsg = $.isNode() ? require(`./sendMqttMsg`):'';
 //Node.js用户请在jdCookie.js处填写京东ck;
