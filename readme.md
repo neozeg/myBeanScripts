@@ -1,0 +1,1 @@
+ql repo https://github.com/neozeg/myBeanScriptsRepo.git "myBeanInfo.js|myJDFruit.js" "activity|backUp" "^jd[^_]|USER|function|utils|sendNotify|sendMqttMsg|ZooFaker_Necklace.js|JDJRValidator_|sign_graphics_validate|ql|JDSignValidator" "main"
