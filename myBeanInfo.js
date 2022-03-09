@@ -71,7 +71,7 @@ if ($.isNode()) {
         beanInfo.beanCount = $.beanCount;
         beanInfo.expenseBean = $.expenseBean;
         beanInfo.todayIncomeBean = $.todayIncomeBean;
-        beanInfo.isLogin = $.isLogin;
+        beanInfo.isLogin = `${$.isLogin}`;
         // beanInfo.UserName = $.UserName;
         // beanInfo.incomeBean = $.incomeBean;
         // beanInfo$.errorMsg = $.errorMsg;
