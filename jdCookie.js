@@ -1,6 +1,3 @@
-//debug
-process.env.JD_COOKIE = `pt_key=AAJiCPsGADDbxF41sTsPcNfymLlpYT4FIVfddWcLM_Irt9gykJTSEJ9mdG4DGMhIQQmlVZVXNv8;pt_pin=jd_xTBcgyGJBVKI;`
-//debug
 /*
 ================================================================================
 魔改自 https://github.com/shufflewzc/faker2/blob/main/jdCookie.js
