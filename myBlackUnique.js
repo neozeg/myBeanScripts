@@ -14,8 +14,6 @@ MyKnightCard = type=cron,cronexp="12 * * * *",wake-system=1,timeout=3600,script-
 
 ============小火箭=========
 MyKnightCard= type=cron,script-path=myBeanInfo.js, cronexpr="12 * * * *", timeout=3600, enable=true
- */
-
 */
 
 const jsname = 'MyKnightCard'
