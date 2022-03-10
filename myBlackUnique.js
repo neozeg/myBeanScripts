@@ -3,14 +3,14 @@ APP：MyKnightCard
 ============Quantumultx===============
 [task_local]
 #MyKnightCard
-12 * * * * myBeanInfo.js, tag=MyKnightCard, img-url=, enabled=true
+12 * * * * myBlackUnique.js, tag=MyKnightCard, img-url=, enabled=true
 ================Loon==============
 [Script]
-cron "12 * * * *" script-path=myBeanInfo.js, tag=MyKnightCard
+cron "12 * * * *" script-path=myBlackUnique.js, tag=MyKnightCard
 ===============Surge=================
-MyKnightCard = type=cron,cronexp="12 * * * *",wake-system=1,timeout=3600,script-path=myBeanInfo.js
+MyKnightCard = type=cron,cronexp="12 * * * *",wake-system=1,timeout=3600,script-path=myBlackUnique.js
 ============小火箭=========
-MyKnightCard= type=cron,script-path=myBeanInfo.js, cronexpr="12 * * * *", timeout=3600, enable=true
+MyKnightCard= type=cron,script-path=myBlackUnique.js, cronexpr="12 * * * *", timeout=3600, enable=true
 */
 
 const jsname = 'MyKnightCard'
