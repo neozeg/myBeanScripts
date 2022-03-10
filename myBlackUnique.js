@@ -4,14 +4,11 @@ APP：MyKnightCard
 [task_local]
 #MyKnightCard
 12 * * * * myBeanInfo.js, tag=MyKnightCard, img-url=, enabled=true
-
 ================Loon==============
 [Script]
 cron "12 * * * *" script-path=myBeanInfo.js, tag=MyKnightCard
-
 ===============Surge=================
 MyKnightCard = type=cron,cronexp="12 * * * *",wake-system=1,timeout=3600,script-path=myBeanInfo.js
-
 ============小火箭=========
 MyKnightCard= type=cron,script-path=myBeanInfo.js, cronexpr="12 * * * *", timeout=3600, enable=true
 */
@@ -21,7 +18,7 @@ const $ = Env(jsname)
 const notifyFlag = 1; //0为关闭通知，1为打开通知,默认为1
 const logDebug = 0
 
-//const notify = $.isNode() ? require('./sendNotify') : '';
+const notify = $.isNode() ? require('./sendNotify') : '';
 let notifyStr = ''
 
 let blackJSON = ($.isNode() ? (process.env.blackJSON) : ($.getval('blackJSON'))) || ''
@@ -46,6 +43,7 @@ let bussinessInfo = '{}'
 
 let rndtime = "" //毫秒
 
+var userInfoData;
 ///////////////////////////////////////////////////////////////////
 
 !(async () => {
@@ -64,6 +62,8 @@ let rndtime = "" //毫秒
         console.log('\n提现需要关注微信公众号，在公众号里申请提现')
         
         for(userIdx=0; userIdx<blackArr.length; userIdx++) {
+            userInfoData = new Object();
+            userInfoData.index = userIdx;
             console.log(`\n===== 开始用户${userIdx+1} =====`)
             await querySignStatus()//获取签到状态
             // await listUserTask()//日常-任务列表
@@ -80,6 +80,7 @@ let rndtime = "" //毫秒
             // await userFertilizerDetail()//果园肥料状态
             // await getTreeCoupon()//果园-摇树得优惠券
             await userInfo()//查询账户信息
+            console.log(JSON.stringify(userInfoData));
         }
         await showmsg()
     }
@@ -100,7 +101,7 @@ async function showmsg() {
 
     if (notifyFlag == 1) {
         $.msg(notifyBody);
-        //if ($.isNode()){await notify.sendNotify($.name, notifyBody );}
+        // if ($.isNode()){await notify.sendNotify($.name, notifyBody );}
     }
 }
 
@@ -1545,6 +1546,12 @@ async function userRebateInfo() {
                             notifyStr += `【骑士卡号】：${result.data.userPointsResp.cardNo}\n`
                             console.log(`【现金余额】：${result.data.currencyBlanceResp.commission}元`)
                             notifyStr += `【现金余额】：${result.data.currencyBlanceResp.commission}元\n`
+
+                            userInfoData.cardNo = result.data.userPointsResp.cardNo;
+                            userInfoData.commission = result.data.currencyBlanceResp.commission;
+
+                            // console.log(JSON.stringify(result));
+
                         } else {
                             console.log(`查询现金余额失败：${result.msg}`)
                             notifyStr += `查询现金余额失败：${result.msg}\n`
@@ -1594,6 +1601,8 @@ async function userTopInfo() {
                         if(result.code == 200) {
                             console.log(`【勋章余额】：${result.data.score} ≈ ${result.data.score/10000}元`)
                             notifyStr += `【勋章余额】：${result.data.score} ≈ ${result.data.score/10000}元\n`
+                            userInfoData.score = result.data.score;
+                            // console.log(JSON.stringify(result));
                         } else {
                             console.log(`查询勋章余额失败：${result.msg}`)
                             notifyStr += `查询勋章余额失败：${result.msg}\n`
