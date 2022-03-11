@@ -81,7 +81,7 @@ var userInfoData;
             // await userFertilizerDetail()//果园肥料状态
             // await getTreeCoupon()//果园-摇树得优惠券
             await userInfo()//查询账户信息
-            await mqttMsg.sendMqttMessage(MY_MQTT_BLACKUNIQUE_TOPIC,JSON.stringify(userInfoData));
+            await mqttMsg.sendMqttMessage(`${MY_MQTT_BLACKUNIQUE_TOPIC}/${userInfoData.index}`,JSON.stringify(userInfoData));
             console.log(JSON.stringify(userInfoData));
         }
         await showmsg()
