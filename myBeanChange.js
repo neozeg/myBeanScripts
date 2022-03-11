@@ -1,5 +1,6 @@
+
 /*
-cron "30 */6 * * *" myBeanChange.js, tag:资产变化强化版by-ccwav
+cron "30 0-23/6 * * *" myBeanChange.js, tag:资产变化强化版by-ccwav
  */
 
 //详细说明参考 https://github.com/ccwav/QLScript2
@@ -1635,15 +1636,19 @@ function redPacket() {
 						$.expiredBalance = ($.jxRedExpire + $.jsRedExpire + $.jdRedExpire).toFixed(2);
 						$.message += `【红包总额】${$.balance}(总过期${$.expiredBalance})元 \n`;
 						if ($.jxRed > 0){
+							$.jxRedExpire = $.jxRedExpire.toFixed(2);
 							$.message += `【京喜红包】${$.jxRed}(将过期${$.jxRedExpire.toFixed(2)})元 \n`;
                         }
 						if ($.jsRed > 0){
+							$.jsRedExpire = $.jsRedExpire.toFixed(2);
 							$.message += `【极速红包】${$.jsRed}(将过期${$.jsRedExpire.toFixed(2)})元 \n`;
                         }
 						if ($.jdRed > 0){
+							$.jdRedExpire = $.jdRedExpire.toFixed(2);
 							$.message += `【京东红包】${$.jdRed}(将过期${$.jdRedExpire.toFixed(2)})元 \n`;
                         }
 						if ($.jdhRed > 0){
+							$.jdhRedExpire = $.jdhRedExpire.toFixed(2);
 							$.message += `【健康红包】${$.jdhRed}(将过期${$.jdhRedExpire.toFixed(2)})元 \n`;
                         }
 					} else {
