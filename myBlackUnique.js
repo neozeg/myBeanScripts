@@ -45,6 +45,9 @@ let bussinessInfo = '{}'
 let rndtime = "" //毫秒
 
 var userInfoData;
+
+let MY_MQTT_BLACKUNIQUE_TOPIC = ''
+if (process.env.MY_MQTT_BLACKUNIQUE_TOPIC)MY_MQTT_BLACKUNIQUE_TOPIC = process.env.MY_MQTT_BLACKUNIQUE_TOPIC;
 ///////////////////////////////////////////////////////////////////
 
 !(async () => {
