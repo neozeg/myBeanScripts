@@ -1,8 +1,8 @@
-let MY_MQTT_CLIENTID='NODE_JS_TEST_QINGLONG'
-let MY_MQTT_USERNAME = 'neozeg'
-let MY_MQTT_KEY = 'MzUyNjI4Nzc'
-let MY_MQTT_ADDRESS = 'hohomecloud.x24hr.com'
-let MY_MQTT_PORT = '1883'
+let MY_MQTT_CLIENTID=''
+let MY_MQTT_USERNAME = ''
+let MY_MQTT_KEY = ''
+let MY_MQTT_ADDRESS = ''
+let MY_MQTT_PORT = ''
 let MY_MQTT_BEANINFO_TOPIC = 'hass/jd_beaninfo'
 let MY_MQTT_HASS_LED_TOPIC = `hass/DotDotClock_7082`
 let MY_MQTT_FRUITINFO_TOPIC = 'hass/jd_fruitinfo'
