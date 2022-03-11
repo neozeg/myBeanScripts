@@ -754,13 +754,15 @@ async function showMsg() {
 	}
 	
 	if (EnableJxBeans) {
-		ReturnMessage += `【今日喜豆】收${$.todayinJxBean}豆`;		
+		ReturnMessage += `【今日喜豆】收${$.todayinJxBean}豆`;	
+        myBeanInfo.$.todayinJxBean = $.todayinJxBean;			
 		if ($.todayOutJxBean != 0) {
 			ReturnMessage += `,支${$.todayOutJxBean}豆`;	
             myBeanInfo.$.todayOutJxBean;		
 		}
 		ReturnMessage += `\n`;		
-		ReturnMessage += `【昨日喜豆】收${$.inJxBean}豆`;		
+		ReturnMessage += `【昨日喜豆】收${$.inJxBean}豆`;	
+        myBeanInfo.$.inJxBean = $.inJxBean;			
 		if ($.OutJxBean != 0) {
 			ReturnMessage += `,支${$.OutJxBean}豆`;	
             myBeanInfo.$.OutJxBean;					
