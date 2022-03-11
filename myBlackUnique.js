@@ -3,14 +3,14 @@ APP：MyKnightCard
 ============Quantumultx===============
 [task_local]
 #MyKnightCard
-12 * * * * myBlackUnique.js, tag=MyKnightCard, img-url=, enabled=true
+12 * * * * myBeanInfo.js, tag=MyKnightCard, img-url=, enabled=true
 ================Loon==============
 [Script]
-cron "12 * * * *" script-path=myBlackUnique.js, tag=MyKnightCard
+cron "12 * * * *" script-path=myBeanInfo.js, tag=MyKnightCard
 ===============Surge=================
-MyKnightCard = type=cron,cronexp="12 * * * *",wake-system=1,timeout=3600,script-path=myBlackUnique.js
+MyKnightCard = type=cron,cronexp="12 * * * *",wake-system=1,timeout=3600,script-path=myBeanInfo.js
 ============小火箭=========
-MyKnightCard= type=cron,script-path=myBlackUnique.js, cronexpr="12 * * * *", timeout=3600, enable=true
+MyKnightCard= type=cron,script-path=myBeanInfo.js, cronexpr="12 * * * *", timeout=3600, enable=true
 */
 
 const jsname = 'MyKnightCard'
@@ -19,6 +19,7 @@ const notifyFlag = 1; //0为关闭通知，1为打开通知,默认为1
 const logDebug = 0
 
 const notify = $.isNode() ? require('./sendNotify') : '';
+const mqttMsg = $.isNode() ? require(`./sendMqttMsg`):'';
 let notifyStr = ''
 
 let blackJSON = ($.isNode() ? (process.env.blackJSON) : ($.getval('blackJSON'))) || ''
@@ -63,7 +64,7 @@ var userInfoData;
         
         for(userIdx=0; userIdx<blackArr.length; userIdx++) {
             userInfoData = new Object();
-            userInfoData.index = userIdx;
+            userInfoData.index = userIdx+1;
             console.log(`\n===== 开始用户${userIdx+1} =====`)
             await querySignStatus()//获取签到状态
             // await listUserTask()//日常-任务列表
@@ -80,6 +81,7 @@ var userInfoData;
             // await userFertilizerDetail()//果园肥料状态
             // await getTreeCoupon()//果园-摇树得优惠券
             await userInfo()//查询账户信息
+            await mqttMsg.sendMqttMessage(MY_MQTT_BLACKUNIQUE_TOPIC,JSON.stringify(userInfoData));
             console.log(JSON.stringify(userInfoData));
         }
         await showmsg()
