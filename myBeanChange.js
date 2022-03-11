@@ -654,7 +654,7 @@ async function showMsg() {
 	}
 
     myBeanInfo.nickName = $.nickName || $.UserName;
-	myBeanInfo.isLogin = $.isLogin;
+	myBeanInfo.isLogin =  `${$.isLogin}`;
 	if ($.levelName || $.JingXiang){
 		ReturnMessage += `【账号信息】`;
 		if ($.levelName) {
