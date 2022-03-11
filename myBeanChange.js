@@ -755,14 +755,14 @@ async function showMsg() {
 	
 	if (EnableJxBeans) {
 		ReturnMessage += `【今日喜豆】收${$.todayinJxBean}豆`;	
-        myBeanInfo.$.todayinJxBean = $.todayinJxBean;			
+        myBeanInfo.todayinJxBean = $.todayinJxBean;	
 		if ($.todayOutJxBean != 0) {
 			ReturnMessage += `,支${$.todayOutJxBean}豆`;	
             myBeanInfo.$.todayOutJxBean;		
 		}
 		ReturnMessage += `\n`;		
 		ReturnMessage += `【昨日喜豆】收${$.inJxBean}豆`;	
-        myBeanInfo.$.inJxBean = $.inJxBean;			
+		myBeanInfo.inJxBean = $.inJxBean;	
 		if ($.OutJxBean != 0) {
 			ReturnMessage += `,支${$.OutJxBean}豆`;	
             myBeanInfo.$.OutJxBean;					
@@ -1638,21 +1638,21 @@ function redPacket() {
 						$.expiredBalance = ($.jxRedExpire + $.jsRedExpire + $.jdRedExpire).toFixed(2);
 						$.message += `【红包总额】${$.balance}(总过期${$.expiredBalance})元 \n`;
 						if ($.jxRed > 0){
-							$.jxRedExpire = $.jxRedExpire.toFixed(2);
 							$.message += `【京喜红包】${$.jxRed}(将过期${$.jxRedExpire.toFixed(2)})元 \n`;
                         }
 						if ($.jsRed > 0){
-							$.jsRedExpire = $.jsRedExpire.toFixed(2);
 							$.message += `【极速红包】${$.jsRed}(将过期${$.jsRedExpire.toFixed(2)})元 \n`;
                         }
 						if ($.jdRed > 0){
-							$.jdRedExpire = $.jdRedExpire.toFixed(2);
 							$.message += `【京东红包】${$.jdRed}(将过期${$.jdRedExpire.toFixed(2)})元 \n`;
                         }
 						if ($.jdhRed > 0){
-							$.jdhRedExpire = $.jdhRedExpire.toFixed(2);
 							$.message += `【健康红包】${$.jdhRed}(将过期${$.jdhRedExpire.toFixed(2)})元 \n`;
                         }
+						$.jxRedExpire = $.jxRedExpire.toFixed(2);
+						$.jsRedExpire = $.jsRedExpire.toFixed(2);
+						$.jdRedExpire = $.jdRedExpire.toFixed(2);
+						$.jdhRedExpire = $.jdhRedExpire.toFixed(2);
 					} else {
 						console.log(`京东服务器返回空数据`)
 					}
