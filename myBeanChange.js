@@ -1,6 +1,6 @@
 
 /*
-cron "30 0-23/6 * * *" myBeanChange.js, tag:资产变化强化版by-ccwav
+cron "33 0-23/6 * * *" myBeanChange.js, tag:资产变化强化版by-ccwav
  */
 
 //详细说明参考 https://github.com/ccwav/QLScript2
