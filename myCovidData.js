@@ -177,6 +177,7 @@ async function showMsg(){
 
 
     console.log(message);
+    notify.sendNotify(message);
 
 }
 
