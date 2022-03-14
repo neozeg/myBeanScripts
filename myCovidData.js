@@ -24,9 +24,9 @@ let nameOfCitySub = '深圳'
     dataOfCity = new Object();
 
     await getCovidData();
-    console.log(JSON.stringify(dataOfChina));    
-    console.log(JSON.stringify(dataOfProvince));
-    console.log(JSON.stringify(dataOfCity));
+    // console.log(JSON.stringify(dataOfChina));    
+    // console.log(JSON.stringify(dataOfProvince));
+    // console.log(JSON.stringify(dataOfCity));
 
     showMsg();
 
