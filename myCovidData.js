@@ -16,7 +16,7 @@ const notify = $.isNode() ? require('./sendNotify'):'';
 let covidData;
 let nameOfData = '';
 
-let listOfSub = [`中国`,`香港`,`广东`,`深圳`]; 
+let listOfSub = [`中国`,`广东`,`深圳`,`香港`,`美国`]; 
 
 !(async()=>{
 
@@ -33,14 +33,6 @@ let listOfSub = [`中国`,`香港`,`广东`,`深圳`];
         await getCovidData();
         showMsg();
     }
-    // dataOfChina = new Object();
-    // dataOfProvince = new Object();
-    // dataOfCity = new Object();
-
-    // await getCovidData();
-    // console.log(JSON.stringify(dataOfChina));    
-    // console.log(JSON.stringify(dataOfProvince));
-    // console.log(JSON.stringify(dataOfCity));
 
 
 
@@ -76,17 +68,17 @@ function getCovidData(){
                                 // console.log(area_sub.name);
                                     if(area_sub.name.search(nameOfData) != -1){
                                         covidData.name = area_sub.name;
-                                        //确诊新增：` ;
+                                        //确诊新增：
                                         covidData.today.confirm = area_sub.today.confirm;
-                                        //确诊累计：` ;
+                                        //确诊累计：
                                         covidData.total.confirm = area_sub.total.confirm;
-                                        //治愈新增：`;
+                                        //治愈新增：
                                         covidData.today.heal = area_sub.today.heal;
-                                        //治愈累计：`;
+                                        //治愈累计：
                                         covidData.total.heal = area_sub.total.heal;
-                                        //死亡新增：`;
+                                        //死亡新增：
                                         covidData.today.dead = area_sub.today.dead ;
-                                        //死亡累计：`;
+                                        //死亡累计：
                                         covidData.total.dead = area_sub.total.dead ;
                                         covidData.today.storeConfirm = area_sub.total.confirm - area_sub.total.dead - area_sub.total.heal;
                                         break;
@@ -95,17 +87,17 @@ function getCovidData(){
                                     // console.log(area_sub_sub.name);
                                     if(area_sub_sub.name.search(nameOfData) != -1){
                                         covidData.name = area_sub_sub.name;
-                                        //确诊新增：` ;
+                                        //确诊新增：
                                         covidData.today.confirm = area_sub_sub.today.confirm;
-                                        //确诊累计：` ;
+                                        //确诊累计：
                                         covidData.total.confirm = area_sub_sub.total.confirm;
-                                        //治愈新增：`;
+                                        //治愈新增：
                                         covidData.today.heal = area_sub_sub.today.heal;
-                                        //治愈累计：`;
+                                        //治愈累计：
                                         covidData.total.heal = area_sub_sub.total.heal;
-                                        //死亡新增：`;
+                                        //死亡新增：
                                         covidData.today.dead = area_sub_sub.today.dead ;
-                                        //死亡累计：`;
+                                        //死亡累计：
                                         covidData.total.dead = area_sub_sub.total.dead ;
                                         covidData.today.storeConfirm = area_sub_sub.total.confirm - area_sub_sub.total.dead - area_sub_sub.total.heal;
                                         break;
@@ -115,17 +107,17 @@ function getCovidData(){
                             }
                             if(area.name.search(nameOfData) != -1){
                                 covidData.name = area.name;
-                                //确诊新增：` ;
+                                //确诊新增：
                                 covidData.today.confirm = area.today.confirm;
-                                //确诊累计：` ;
+                                //确诊累计：
                                 covidData.total.confirm = area.total.confirm;
-                                //治愈新增：`;
+                                //治愈新增：
                                 covidData.today.heal = area.today.heal;
-                                //治愈累计：`;
+                                //治愈累计：
                                 covidData.total.heal = area.total.heal;
-                                //死亡新增：`;
+                                //死亡新增：
                                 covidData.today.dead = area.today.dead ;
-                                //死亡累计：`;
+                                //死亡累计：
                                 covidData.total.dead = area.total.dead ;
                                 covidData.today.storeConfirm = area.total.confirm - area.total.dead - area.total.heal;
 
