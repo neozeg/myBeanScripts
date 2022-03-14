@@ -54,6 +54,7 @@ function parseCovidData(){
                 // console.log(area_sub.name);
                     if(area_sub.name.search(nameOfData) != -1){
                         covidData.name = area_sub.name;
+                        covidData.id = area_sub.id;
                         //确诊新增：
                         covidData.today.confirm = area_sub.today.confirm;
                         //确诊累计：
@@ -73,6 +74,7 @@ function parseCovidData(){
                     // console.log(area_sub_sub.name);
                     if(area_sub_sub.name.search(nameOfData) != -1){
                         covidData.name = area_sub_sub.name;
+                        covidData.id = area_sub_sub.id;
                         //确诊新增：
                         covidData.today.confirm = area_sub_sub.today.confirm;
                         //确诊累计：
@@ -93,6 +95,7 @@ function parseCovidData(){
             }
             if(area.name.search(nameOfData) != -1){
                 covidData.name = area.name;
+                covidData.id = area.id;
                 //确诊新增：
                 covidData.today.confirm = area.today.confirm;
                 //确诊累计：
@@ -156,8 +159,8 @@ function getCovidData(){
 
 async function showMsg(){
     let message = '';
-    message += `\n【${covidData.name}】`;
-    message += `今日数据:`;
+    message += `\n【${covidData.name}】【${covidData.id}】`;
+    // message += `今日数据:`;
     message += `\n确诊新增：` ;
     message += (covidData.today.confirm)?`${covidData.today.confirm}`:`-`;
     message += `\n确诊累计：` ;
