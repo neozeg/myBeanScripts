@@ -99,7 +99,7 @@ async function showMsg(){
     let message = '';
     message += `\n${dataOfChina.name}`;
     message += `今日数据:`;
-    message += `\n今日新增：` ;
+    message += `\n确诊新增：` ;
     message += (dataOfChina.today.confirm)?`${dataOfChina.today.confirm}`:`-`;
     message += ` / ${dataOfChina.total.confirm}`;
     message += `\n疑似新增：` ;
@@ -126,7 +126,7 @@ async function showMsg(){
 
     message += `\n${dataOfProvince.name}`;
     message += `今日数据:`;
-    message += `\n今日新增：` ;
+    message += `\n确诊新增：` ;
     message += (dataOfProvince.today.confirm)?`${dataOfProvince.today.confirm}`:`-`;
     message += ` / ${dataOfProvince.total.confirm}`;
     message += `\n疑似新增：` ;
@@ -152,7 +152,7 @@ async function showMsg(){
 
     message += `\n${dataOfCity.name}`;
     message += `今日数据:`;
-    message += `\n今日新增：` ;
+    message += `\n确诊新增：` ;
     message += (dataOfCity.today.confirm)?`${dataOfCity.today.confirm}`:`-`;
     message += ` / ${dataOfCity.total.confirm}`;
     message += `\n疑似新增：` ;
