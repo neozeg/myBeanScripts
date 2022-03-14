@@ -13,22 +13,35 @@ const { env } = require("process");
 const $ = new Env(`my新冠数字信息`);
 const notify = $.isNode() ? require('./sendNotify'):''; 
 // let add_daily;
-let dataOfChina;
-let dataOfProvince;
-let dataOfCity;
-let nameOfProvinceSub = '广东'
-let nameOfCitySub = '深圳'
-!(async()=>{
-    dataOfChina = new Object();
-    dataOfProvince = new Object();
-    dataOfCity = new Object();
+let covidData;
+let nameOfData = '';
 
-    await getCovidData();
+let listOfSub = [`中国`,`香港`,`广东`,`深圳`]; 
+
+!(async()=>{
+
+    if(!listOfSub[0]){
+        $.msg($.name,`请加入需要查询国家/省份/城市`);
+        return;
+    }
+
+    for(i = 0;i<listOfSub.length;i++){
+        covidData = new Object();
+        covidData.today = new Object();
+        covidData.total = new Object();
+        nameOfData = listOfSub[i];
+        await getCovidData();
+        showMsg();
+    }
+    // dataOfChina = new Object();
+    // dataOfProvince = new Object();
+    // dataOfCity = new Object();
+
+    // await getCovidData();
     // console.log(JSON.stringify(dataOfChina));    
     // console.log(JSON.stringify(dataOfProvince));
     // console.log(JSON.stringify(dataOfCity));
 
-    showMsg();
 
 
 })().catch((e) => {
@@ -57,27 +70,94 @@ function getCovidData(){
                         data = JSON.parse(data);
                         // add_daily = data.data.add_daily;
                         // console.log(JSON.stringify(data.data.add_daily));   
-                        for(let area of data.data.areaTree){
-                            if(area.name.search('中国') != -1){
-                                dataOfChina  = area;
-                                break; 
-                            }
-                        } 
-                        
-                        for(let province of dataOfChina.children){
-                            // console.log(province.name);
-                            if(province.name.search(nameOfProvinceSub) != -1){
-                                dataOfProvince = province;
-                                break;
-                            }
-                        }
 
-                        for(let city of dataOfProvince.children){
-                            // console.log(city.name);
-                            if(city.name.search(nameOfCitySub) != -1){
-                                dataOfCity = city;
+                        for(let area of data.data.areaTree){
+                            for(let area_sub of area.children){
+                                // console.log(area_sub.name);
+                                    if(area_sub.name.search(nameOfData) != -1){
+                                        covidData.name = area_sub.name;
+                                        //确诊新增：` ;
+                                        covidData.today.confirm = area_sub.today.confirm;
+                                        //确诊累计：` ;
+                                        covidData.total.confirm = area_sub.total.confirm;
+                                        //治愈新增：`;
+                                        covidData.today.heal = area_sub.today.heal;
+                                        //治愈累计：`;
+                                        covidData.total.heal = area_sub.total.heal;
+                                        //死亡新增：`;
+                                        covidData.today.dead = area_sub.today.dead ;
+                                        //死亡累计：`;
+                                        covidData.total.dead = area_sub.total.dead ;
+                                        covidData.today.storeConfirm = area_sub.total.confirm - area_sub.total.dead - area_sub.total.heal;
+                                        break;
+                                    }
+                                for(let area_sub_sub of area_sub.children){
+                                    // console.log(area_sub_sub.name);
+                                    if(area_sub_sub.name.search(nameOfData) != -1){
+                                        covidData.name = area_sub_sub.name;
+                                        //确诊新增：` ;
+                                        covidData.today.confirm = area_sub_sub.today.confirm;
+                                        //确诊累计：` ;
+                                        covidData.total.confirm = area_sub_sub.total.confirm;
+                                        //治愈新增：`;
+                                        covidData.today.heal = area_sub_sub.today.heal;
+                                        //治愈累计：`;
+                                        covidData.total.heal = area_sub_sub.total.heal;
+                                        //死亡新增：`;
+                                        covidData.today.dead = area_sub_sub.today.dead ;
+                                        //死亡累计：`;
+                                        covidData.total.dead = area_sub_sub.total.dead ;
+                                        covidData.today.storeConfirm = area_sub_sub.total.confirm - area_sub_sub.total.dead - area_sub_sub.total.heal;
+                                        break;
+                                    }
+                                }
+
+                            }
+                            if(area.name.search(nameOfData) != -1){
+                                covidData.name = area.name;
+                                //确诊新增：` ;
+                                covidData.today.confirm = area.today.confirm;
+                                //确诊累计：` ;
+                                covidData.total.confirm = area.total.confirm;
+                                //治愈新增：`;
+                                covidData.today.heal = area.today.heal;
+                                //治愈累计：`;
+                                covidData.total.heal = area.total.heal;
+                                //死亡新增：`;
+                                covidData.today.dead = area.today.dead ;
+                                //死亡累计：`;
+                                covidData.total.dead = area.total.dead ;
+                                covidData.today.storeConfirm = area.total.confirm - area.total.dead - area.total.heal;
+
+                                // console.log(JSON.stringify(covidData));
                                 break;
                             }
+                            //else{
+                                // for(let province of area){
+                                //     if(province.name.search(nameOfData) != -1){
+                                //         covidData.name = province.name;
+                                //         //确诊新增：` ;
+                                //         covidData.today.confirm = province.today.confirm;
+                                //         //确诊累计：` ;
+                                //         covidData.total.confirm = province.total.confirm;
+                                //         //治愈新增：`;
+                                //         covidData.today.heal = province.today.heal;
+                                //         //治愈累计：`;
+                                //         covidData.total.heal = province.total.heal;
+                                //         //死亡新增：`;
+                                //         covidData.today.dead = province.today.dead ;
+                                //         //死亡累计：`;
+                                //         covidData.total.dead = province.total.dead ;
+                                //         covidData.today.storeConfirm = province.total.confirm - province.total.dead - province.total.heal;
+        
+                                //         console.log(JSON.stringify(covidData));
+                                //         break;
+    
+                                //     }
+                                // }
+
+                            // }
+                            
                         }
 
                     }else{
@@ -97,87 +177,35 @@ function getCovidData(){
 
 async function showMsg(){
     let message = '';
-    message += `\n${dataOfChina.name}`;
+    message += `\n【${covidData.name}】`;
     message += `今日数据:`;
     message += `\n确诊新增：` ;
-    message += (dataOfChina.today.confirm)?`${dataOfChina.today.confirm}`:`-`;
-    message += ` / ${dataOfChina.total.confirm}`;
-    message += `\n疑似新增：` ;
-    message += (dataOfChina.today.suspect)?`${dataOfChina.today.suspect}`:`-`;
-    message += ` / ${dataOfChina.total.suspect}`;
+    message += (covidData.today.confirm)?`${covidData.today.confirm}`:`-`;
+    message += `\n确诊累计：` ;
+    message += (covidData.total.confirm)?`${covidData.total.confirm}`:`-`;
+    // message += `\n疑似新增：` ;
+    // message += (covidData.today.suspect)?`${covidData.today.suspect}`:`-`;
+    // message += ` / ${covidData.total.suspect}`;
     message += `\n治愈新增：`;
-    message += (dataOfChina.today.heal)?`${dataOfChina.today.heal}`:`-`;
-    message += ` / ${dataOfChina.total.heal}`;
+    message += (covidData.today.heal)?`${covidData.today.heal}`:`-`;
+    message += `\n治愈累计：`;
+    message += (covidData.total.heal)?`${covidData.total.heal}`:`-`;
     message += `\n死亡新增：`;
-    message += (dataOfChina.today.dead)?`${dataOfChina.today.dead}`:`-` ;
-    message += ` / ${dataOfChina.total.dead}`;
-    // message += `\n  无症状：`;
-    // message += (dataOfChina.today.severe)?`${dataOfChina.today.severe}`:`-`;
-    // message += ` / ${dataOfChina.total.severe}`;
+    message += (covidData.today.dead)?`${covidData.today.dead}`:`-` ;
+    message += `\n死亡累计：`;
+    message += (covidData.total.dead)?`${covidData.total.dead}`:`-` ;
     message += `\n现存确诊：`;
-    message += (dataOfChina.today.storeConfirm)?`${dataOfChina.today.storeConfirm}`:`-`;
-    // message += ` / ${dataOfChina.total.storeConfirm}`;
-    message += `\n境外输入：`;
-    message += (dataOfChina.today.input)?`${dataOfChina.today.input}`:`-` ;
-    message += ` / ${dataOfChina.total.input}`;
-    message += `\n`;
-
+    message += (covidData.today.storeConfirm)?`${covidData.today.storeConfirm}`:`-`;
     
-
-    message += `\n${dataOfProvince.name}`;
-    message += `今日数据:`;
-    message += `\n确诊新增：` ;
-    message += (dataOfProvince.today.confirm)?`${dataOfProvince.today.confirm}`:`-`;
-    message += ` / ${dataOfProvince.total.confirm}`;
-    message += `\n疑似新增：` ;
-    message += (dataOfProvince.today.suspect)?`${dataOfProvince.today.suspect}`:`-`;
-    message += ` / ${dataOfProvince.total.suspect}`;
-    message += `\n治愈新增：`;
-    message += (dataOfProvince.today.heal)?`${dataOfProvince.today.heal}`:`-`;
-    message += ` / ${dataOfProvince.total.heal}`;
-    message += `\n死亡新增：`;
-    message += (dataOfProvince.today.dead)?`${dataOfProvince.today.dead}`:`-` ;
-    message += ` / ${dataOfProvince.total.dead}`;
-    // message += `\n  无症状：`;
-    // message += (dataOfProvince.today.severe)?`${dataOfProvince.today.severe}`:`-`;
-    // message += ` / ${dataOfProvince.total.severe}`;
-    message += `\n现存确诊：`;
-    message += (dataOfProvince.today.storeConfirm)?`${dataOfProvince.today.storeConfirm}`:`-`;
-    // message += ` / ${dataOfProvince.total.storeConfirm}`;
-    message += `\n境外输入：`;
-    message += (dataOfProvince.today.input)?`${dataOfProvince.today.input}`:`-` ;
-    // message += ` / ${dataOfProvince.total.input}`;
-    message += `\n`;
-
-
-    message += `\n${dataOfCity.name}`;
-    message += `今日数据:`;
-    message += `\n确诊新增：` ;
-    message += (dataOfCity.today.confirm)?`${dataOfCity.today.confirm}`:`-`;
-    message += ` / ${dataOfCity.total.confirm}`;
-    message += `\n疑似新增：` ;
-    message += (dataOfCity.today.suspect)?`${dataOfCity.today.suspect}`:`-`;
-    message += ` / ${dataOfCity.total.suspect}`;
-    message += `\n治愈新增：`;
-    message += (dataOfCity.today.heal)?`${dataOfCity.today.heal}`:`-`;
-    message += ` / ${dataOfCity.total.heal}`;
-    message += `\n死亡新增：`;
-    message += (dataOfCity.today.dead)?`${dataOfCity.today.dead}`:`-` ;
-    message += ` / ${dataOfCity.total.dead}`;
-    // message += `\n  无症状：`;
-    // message += (dataOfCity.today.severe)?`${dataOfCity.today.severe}`:`-`;
-    // message += ` / ${dataOfCity.total.severe}`;
-    message += `\n现存确诊：`;
-    message += (dataOfCity.today.storeConfirm)?`${dataOfCity.today.storeConfirm}`:`-`;
-    // message += ` / ${dataOfCity.total.storeConfirm}`;
-    message += `\n境外输入：`;
-    message += (dataOfCity.today.input)?`${dataOfCity.today.input}`:`-` ;
-    // message += ` / ${dataOfCity.total.input}`;
-    message += `\n`;
+    // message += `\n境外输入：`;
+    // message += (covidData.today.input)?`${covidData.today.input}`:`-` ;
+    // message += `\n输入累计：`;
+    // message += (covidData.total.input)?`${covidData.total.input}`:`-` ;
+    // message += `\n`;
 
 
     console.log(message);
-    notify.sendNotify(message);
+    // notify.sendNotify(`新冠数据`,message);
 
 }
 
