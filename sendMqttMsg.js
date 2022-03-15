@@ -1,8 +1,8 @@
 let MY_MQTT_CLIENTID=''
 let MY_MQTT_USERNAME = ''
 let MY_MQTT_KEY = ''
-let MY_MQTT_ADDRESS = ''
-let MY_MQTT_PORT = ''
+let MY_MQTT_ADDRESS = 'hohomecloud.x24hr.com'
+let MY_MQTT_PORT = '1883'
 let MY_MQTT_BEANINFO_TOPIC = 'hass/jd_beaninfo'
 let MY_MQTT_HASS_LED_TOPIC = `hass/DotDotClock_7082`
 let MY_MQTT_FRUITINFO_TOPIC = 'hass/jd_fruitinfo'
@@ -104,6 +104,7 @@ function sendMqttFruitInfoRaw(text,index){
 }
 
 async function sendMqttMessage(msgTopic,text){
+    console.log(`【connecting ${MY_MQTT_ADDRESS}:${MY_MQTT_PORT}】\n`);
     return new Promise(resolve =>{
         mqttClient = mqtt.connect(`mqtt://${MY_MQTT_ADDRESS}:${MY_MQTT_PORT}`,options);
         mqttClient.on(`connect`,function(){

@@ -12,6 +12,7 @@ const { env } = require("process");
 
 const $ = new Env(`my新冠数字信息`);
 const notify = $.isNode() ? require('./sendNotify'):''; 
+const mqttMsg = $.isNode() ? require(`./sendMqttMsg`):'';
 // let add_daily;
 let covidData;
 let nameOfData = '';
@@ -37,6 +38,8 @@ let listOfSub = [`中国`,`广东`,`深圳`,`香港`,`美国`];
         await parseCovidData();
         showMsg();
     }
+	// mqttMsg.sendMqttMsg("hihi",12);
+	// mqttMsg.sendMqttMessage(`hass/hohome`,`hello`);
 
 
 
