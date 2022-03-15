@@ -78,6 +78,7 @@ function parseCovidData(){
                         //死亡累计：
                         covidData.total.dead = area_sub.total.dead ;
                         covidData.today.storeConfirm = area_sub.total.confirm - area_sub.total.dead - area_sub.total.heal;
+						covidData.lastUpdateTime = area_sub.lastUpdateTime;
                         break;
                     }
                 for(let area_sub_sub of area_sub.children){
@@ -98,6 +99,7 @@ function parseCovidData(){
                         //死亡累计：
                         covidData.total.dead = area_sub_sub.total.dead ;
                         covidData.today.storeConfirm = area_sub_sub.total.confirm - area_sub_sub.total.dead - area_sub_sub.total.heal;
+						covidData.lastUpdateTime = area_sub_sub.lastUpdateTime;
                         break;
                     }
                 }
@@ -119,6 +121,7 @@ function parseCovidData(){
                 //死亡累计：
                 covidData.total.dead = area.total.dead ;
                 covidData.today.storeConfirm = area.total.confirm - area.total.dead - area.total.heal;
+				covidData.lastUpdateTime = area.lastUpdateTime;
 
                 // console.log(JSON.stringify(covidData));
                 break;
@@ -188,6 +191,8 @@ async function showMsg(){
     message += (covidData.total.dead)?`${covidData.total.dead}`:`-` ;
     message += `\n现存确诊：`;
     message += (covidData.today.storeConfirm)?`${covidData.today.storeConfirm}`:`-`;
+	message += `\n更新时间：`;
+    message += (covidData.lastUpdateTime)?`${covidData.lastUpdateTime}`:`-`;
     
     // message += `\n境外输入：`;
     // message += (covidData.today.input)?`${covidData.today.input}`:`-` ;
