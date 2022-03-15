@@ -100,6 +100,11 @@ function sendMqttFruitInfoRaw(text,index){
         console.log(`Exit....`)
         mqttClient.end();
     })
+    mqttClient.on('error', (error) => {
+        console.log(`Cannot connect(${program.protocol}):`, error)
+        mqttClient.end();
+        resolve();
+    })
 
 }
 
@@ -115,18 +120,28 @@ async function sendMqttMessage(msgTopic,text){
             });
         })
         mqttClient.on(`message`,function(topic,payload,packet){
-            console.log(`Topic: ${topic}, Message: ${payload.toString()}, QoS: ${packet.qos}`);
+            console.log(`Topic: ${topic}, QoS: ${packet.qos}`);
             console.log(`Exit....`)
             mqttClient.end();
+            resolve();
         })
-        resolve();
+    
+        mqttClient.on('error', (error) => {
+            console.log(`Cannot connect(${program.protocol}):`, error)
+            mqttClient.end();
+            resolve();
+        })
+        // resolve();
     })
 }
+
+const delay = ms => new Promise((resolve, reject) => setTimeout(resolve,ms));
 
   module.exports = {
     sendMqttMsg,
     sendMqttFruitInfo,
     sendMqttMessage,
+    delay,
   };
 
 // prettier-ignore

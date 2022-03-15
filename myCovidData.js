@@ -13,12 +13,17 @@ const { env } = require("process");
 const $ = new Env(`my新冠数字信息`);
 const notify = $.isNode() ? require('./sendNotify'):''; 
 const mqttMsg = $.isNode() ? require(`./sendMqttMsg`):'';
+// const delay = ms => new Promise((resolve, reject) => setTimeout(resolve,ms));
 // let add_daily;
 let covidData;
 let nameOfData = '';
 let todayFullData;
 
 let listOfSub = [`中国`,`广东`,`深圳`,`香港`,`美国`]; 
+
+let MY_MQTT_COVIDDATA_TOPIC = 'hass/covid_data'
+
+if (process.env.MY_MQTT_COVIDDATA_TOPIC)MY_MQTT_COVIDDATA_TOPIC = process.env.MY_MQTT_COVIDDATA_TOPIC;
 
 !(async()=>{
 
@@ -37,6 +42,8 @@ let listOfSub = [`中国`,`广东`,`深圳`,`香港`,`美国`];
         nameOfData = listOfSub[i];
         await parseCovidData();
         showMsg();
+		await mqttMsg.sendMqttMessage(`${MY_MQTT_COVIDDATA_TOPIC}/${i+1}`,JSON.stringify(covidData));
+		// await mqttMsg.delay(100);
     }
 	// mqttMsg.sendMqttMsg("hihi",12);
 	// mqttMsg.sendMqttMessage(`hass/hohome`,`hello`);
@@ -56,7 +63,7 @@ function parseCovidData(){
             for(let area_sub of area.children){
                 // console.log(area_sub.name);
                     if(area_sub.name.search(nameOfData) != -1){
-                        covidData.name = area_sub.name;
+                        covidData.areaName = area_sub.name;
                         covidData.id = area_sub.id;
                         //确诊新增：
                         covidData.today.confirm = area_sub.today.confirm;
@@ -76,7 +83,7 @@ function parseCovidData(){
                 for(let area_sub_sub of area_sub.children){
                     // console.log(area_sub_sub.name);
                     if(area_sub_sub.name.search(nameOfData) != -1){
-                        covidData.name = area_sub_sub.name;
+                        covidData.areaName = area_sub_sub.name;
                         covidData.id = area_sub_sub.id;
                         //确诊新增：
                         covidData.today.confirm = area_sub_sub.today.confirm;
@@ -97,7 +104,7 @@ function parseCovidData(){
 
             }
             if(area.name.search(nameOfData) != -1){
-                covidData.name = area.name;
+				covidData.areaName = area.name;
                 covidData.id = area.id;
                 //确诊新增：
                 covidData.today.confirm = area.today.confirm;
