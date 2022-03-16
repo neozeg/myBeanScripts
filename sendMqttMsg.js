@@ -1,11 +1,36 @@
+const jsname = `MQTT Message`
+const $ = Env(jsname)
+
+
+
 let MY_MQTT_CLIENTID=''
 let MY_MQTT_USERNAME = ''
 let MY_MQTT_KEY = ''
-let MY_MQTT_ADDRESS = 'hohomecloud.x24hr.com'
-let MY_MQTT_PORT = '1883'
+let MY_MQTT_ADDRESS = ''
+let MY_MQTT_PORT = ''
 let MY_MQTT_BEANINFO_TOPIC = 'hass/jd_beaninfo'
 let MY_MQTT_HASS_LED_TOPIC = `hass/DotDotClock_7082`
 let MY_MQTT_FRUITINFO_TOPIC = 'hass/jd_fruitinfo'
+
+let configFile = '/works/js work/mqttConfig.json';
+const fs = require('fs');
+let configFileexists = fs.existsSync(configFile);
+let mqttConfig = [];
+if (configFileexists) {
+    console.log("检测到MQTT配置文件，载入...");
+    mqttConfig = fs.readFileSync(configFile, 'utf-8');
+    if (mqttConfig) {
+        mqttConfig = mqttConfig.toString();
+        mqttConfig = JSON.parse(mqttConfig);
+        MY_MQTT_CLIENTID = mqttConfig.client_id;
+        MY_MQTT_USERNAME = mqttConfig.username;
+        MY_MQTT_KEY = mqttConfig.key;
+        MY_MQTT_ADDRESS = mqttConfig.address;
+        MY_MQTT_PORT = mqttConfig.port;
+    }
+}else{
+    console.log("MQTT配置文件不存在\n");
+}
 
 if (process.env.MY_MQTT_CLIENTID)MY_MQTT_CLIENTID = process.env.MY_MQTT_CLIENTID;
 if (process.env.MY_MQTT_USERNAME)MY_MQTT_USERNAME = process.env.MY_MQTT_USERNAME;
@@ -17,9 +42,6 @@ if (process.env.MY_MQTT_HASS_LED_TOPIC)MY_MQTT_HASS_LED_TOPIC = process.env.MY_M
 if (process.env.MY_MQTT_FRUITINFO_TOPIC)MY_MQTT_FRUITINFO_TOPIC = process.env.MY_MQTT_FRUITINFO_TOPIC;
 
 
-const jsname = `MQTT Message`
-const $ = Env(jsname)
-
 const mqtt = require(`mqtt`)
 const options = {
   // Clean session
@@ -30,6 +52,8 @@ const options = {
   username: MY_MQTT_USERNAME,
   password: MY_MQTT_KEY,
 }
+
+
 async function sendMqttMsg(text,code){
     await Promise.all([
         sendMqttMsgRaw(text,code)
