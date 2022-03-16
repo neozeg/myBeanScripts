@@ -12,7 +12,7 @@ let MY_MQTT_BEANINFO_TOPIC = 'hass/jd_beaninfo'
 let MY_MQTT_HASS_LED_TOPIC = `hass/DotDotClock_7082`
 let MY_MQTT_FRUITINFO_TOPIC = 'hass/jd_fruitinfo'
 
-let configFile = '/works/js work/mqttConfig.json';
+let configFile = '/ql/config/mqttConfig.json';
 const fs = require('fs');
 let configFileexists = fs.existsSync(configFile);
 let mqttConfig = [];
