@@ -172,7 +172,7 @@ function getCovidData(){
 
 async function showMsg(){
     let message = '';
-    message += `\n【${covidData.name}】【${covidData.id}】`;
+    message += `\n【${covidData.areaName}】【${covidData.id}】`;
     // message += `今日数据:`;
     message += `\n确诊新增：` ;
     message += (covidData.today.confirm)?`${covidData.today.confirm}`:`-`;
