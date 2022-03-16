@@ -1,7 +1,7 @@
 const jsname = `MQTT Message`
 const $ = Env(jsname)
 
-
+const crypto = require('crypto')
 
 let MY_MQTT_CLIENTID=''
 let MY_MQTT_USERNAME = ''
@@ -40,6 +40,11 @@ if (process.env.MY_MQTT_PORT)MY_MQTT_PORT = process.env.MY_MQTT_PORT;
 if (process.env.MY_MQTT_BEANINFO_TOPIC)MY_MQTT_BEANINFO_TOPIC = process.env.MY_MQTT_BEANINFO_TOPIC;
 if (process.env.MY_MQTT_HASS_LED_TOPIC)MY_MQTT_HASS_LED_TOPIC = process.env.MY_MQTT_HASS_LED_TOPIC;
 if (process.env.MY_MQTT_FRUITINFO_TOPIC)MY_MQTT_FRUITINFO_TOPIC = process.env.MY_MQTT_FRUITINFO_TOPIC;
+
+
+MY_MQTT_CLIENTID = crypto.createHash('md5').update(MY_MQTT_CLIENTID).digest("HEX");
+// console.log(`ClientId=${MY_MQTT_CLIENTID}\n`);
+
 
 
 const mqtt = require(`mqtt`)
