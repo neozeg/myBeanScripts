@@ -1,4 +1,3 @@
-
 /*
 cron "30 0-23/6 * * *" myBeanChange.js, tag:资产变化强化版by-ccwav
  */
@@ -179,6 +178,7 @@ if(DisableIndex!=-1){
 	console.log("检测到设定关闭喜豆查询");
 	EnableJxBeans=false
 }
+// EnableJxBeans=false//强制关闭喜豆查询
 	
 //汪汪乐园
 let EnableJoyPark=true;
@@ -758,14 +758,14 @@ async function showMsg() {
         myBeanInfo.todayinJxBean = $.todayinJxBean;	
 		if ($.todayOutJxBean != 0) {
 			ReturnMessage += `,支${$.todayOutJxBean}豆`;	
-            myBeanInfo.$.todayOutJxBean;		
+            myBeanInfo.todayOutJxBean = $.todayOutJxBean;		
 		}
 		ReturnMessage += `\n`;		
 		ReturnMessage += `【昨日喜豆】收${$.inJxBean}豆`;	
 		myBeanInfo.inJxBean = $.inJxBean;	
 		if ($.OutJxBean != 0) {
 			ReturnMessage += `,支${$.OutJxBean}豆`;	
-            myBeanInfo.$.OutJxBean;					
+            myBeanInfo.OutJxBean = $.OutJxBean;					
 		}
 		ReturnMessage += `\n`;		
 		ReturnMessage += `【当前喜豆】${$.xibeanCount}喜豆(≈${($.xibeanCount/ 100).toFixed(2)}元)\n`;
