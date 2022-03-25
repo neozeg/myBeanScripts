@@ -83,7 +83,7 @@ function sendMqttMsgRaw(text,code){
     })
 
     mqttClient.on(`message`,function(topic,payload,packet){
-        console.log(`Topic: ${topic}, Message: ${payload.toString()}, QoS: ${packet.qos}`);
+        // console.log(`Topic: ${topic}, Message: ${payload.toString()}, QoS: ${packet.qos}`);
         console.log(`Exit....`)
         mqttClient.end();
     })
@@ -103,7 +103,7 @@ function sendMqttMsgRaw(text,code,index){
     })
 
     mqttClient.on(`message`,function(topic,payload,packet){
-        console.log(`Topic: ${topic}, Message: ${payload.toString()}, QoS: ${packet.qos}`);
+        // console.log(`Topic: ${topic}, Message: ${payload.toString()}, QoS: ${packet.qos}`);
         console.log(`Exit....`)
         mqttClient.end();
     })
@@ -125,12 +125,12 @@ function sendMqttFruitInfoRaw(text,index){
         });
     })
     mqttClient.on(`message`,function(topic,payload,packet){
-        console.log(`Topic: ${topic}, Message: ${payload.toString()}, QoS: ${packet.qos}`);
+        // console.log(`Topic: ${topic}, Message: ${payload.toString()}, QoS: ${packet.qos}`);
         console.log(`Exit....`)
         mqttClient.end();
     })
     mqttClient.on('error', (error) => {
-        console.log(`Cannot connect(${program.protocol}):`, error)
+        // console.log(`Cannot connect(${program.protocol}):`, error)
         mqttClient.end();
         resolve();
     })
@@ -149,7 +149,7 @@ async function sendMqttMessage(msgTopic,text){
             });
         })
         mqttClient.on(`message`,function(topic,payload,packet){
-            console.log(`Topic: ${topic}, QoS: ${packet.qos}`);
+            // console.log(`Topic: ${topic}, QoS: ${packet.qos}`);
             console.log(`Exit....`)
             mqttClient.end();
             resolve();
