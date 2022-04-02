@@ -116,7 +116,9 @@ var fruitInfo;
           // fruitInfo.nickName = $.nickName;
           // fruitInfo.totalEnergy = $.farmInfo.farmUserPro.totalEnergy;
           fruitInfo.message = message;
-          mqttMsg.sendMqttFruitInfo(JSON.stringify(fruitInfo),fruitInfo.index);
+          // mqttMsg.sendMqttFruitInfo(JSON.stringify(fruitInfo),fruitInfo.index);
+          mqttMsg.sendMqttMessage(`${MY_MQTT_FRUITINFO_TOPIC}/${fruitInfo.index}`,JSON.stringify(fruitInfo));
+
 
       }
   }

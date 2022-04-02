@@ -87,55 +87,55 @@ const options = {
 //         console.log(`Exit....`)
 //         mqttClient.end();
 //     })
-}
+// }
 
 
 
-function sendMqttMsgRaw(text,code,index){
-    mqttClient = mqtt.connect(`mqtt://${MY_MQTT_ADDRESS}:${MY_MQTT_PORT}`,options);
-    mqttClient.on(`connect`, function (){
-        mqttClient.subscribe(`${MY_MQTT_BEANINFO_TOPIC}/${index}`,function(err){
-            if(!err){
-                mqttClient.publish(`${MY_MQTT_BEANINFO_TOPIC}/${index}`, text)
-                mqttClient.publish(MY_MQTT_HASS_LED_TOPIC, `{"code":${code}}`)
-            }
-        });
-    })
+// function sendMqttMsgRaw(text,code,index){
+//     mqttClient = mqtt.connect(`mqtt://${MY_MQTT_ADDRESS}:${MY_MQTT_PORT}`,options);
+//     mqttClient.on(`connect`, function (){
+//         mqttClient.subscribe(`${MY_MQTT_BEANINFO_TOPIC}/${index}`,function(err){
+//             if(!err){
+//                 mqttClient.publish(`${MY_MQTT_BEANINFO_TOPIC}/${index}`, text)
+//                 mqttClient.publish(MY_MQTT_HASS_LED_TOPIC, `{"code":${code}}`)
+//             }
+//         });
+//     })
 
-    mqttClient.on(`message`,function(topic,payload,packet){
-        // console.log(`Topic: ${topic}, Message: ${payload.toString()}, QoS: ${packet.qos}`);
-        console.log(`Exit....`)
-        mqttClient.end();
-    })
-}
+//     mqttClient.on(`message`,function(topic,payload,packet){
+//         // console.log(`Topic: ${topic}, Message: ${payload.toString()}, QoS: ${packet.qos}`);
+//         console.log(`Exit....`)
+//         mqttClient.end();
+//     })
+// }
 
-async function sendMqttFruitInfo(text,index){
-    await Promise.all([
-        sendMqttFruitInfoRaw(text,index)
-    ])
-}
+// async function sendMqttFruitInfo(text,index){
+//     await Promise.all([
+//         sendMqttFruitInfoRaw(text,index)
+//     ])
+// }
 
-function sendMqttFruitInfoRaw(text,index){
-    mqttClient = mqtt.connect(`mqtt://${MY_MQTT_ADDRESS}:${MY_MQTT_PORT}`,options);
-    mqttClient.on(`connect`,function(){
-        mqttClient.subscribe(`${MY_MQTT_FRUITINFO_TOPIC}/${index}`,function(err){
-            if(!err){
-                mqttClient.publish(`${MY_MQTT_FRUITINFO_TOPIC}/${index}`, text)
-            }
-        });
-    })
-    mqttClient.on(`message`,function(topic,payload,packet){
-        // console.log(`Topic: ${topic}, Message: ${payload.toString()}, QoS: ${packet.qos}`);
-        console.log(`Exit....`)
-        mqttClient.end();
-    })
-    mqttClient.on('error', (error) => {
-        // console.log(`Cannot connect(${program.protocol}):`, error)
-        mqttClient.end();
-        resolve();
-    })
+// function sendMqttFruitInfoRaw(text,index){
+//     mqttClient = mqtt.connect(`mqtt://${MY_MQTT_ADDRESS}:${MY_MQTT_PORT}`,options);
+//     mqttClient.on(`connect`,function(){
+//         mqttClient.subscribe(`${MY_MQTT_FRUITINFO_TOPIC}/${index}`,function(err){
+//             if(!err){
+//                 mqttClient.publish(`${MY_MQTT_FRUITINFO_TOPIC}/${index}`, text)
+//             }
+//         });
+//     })
+//     mqttClient.on(`message`,function(topic,payload,packet){
+//         // console.log(`Topic: ${topic}, Message: ${payload.toString()}, QoS: ${packet.qos}`);
+//         console.log(`Exit....`)
+//         mqttClient.end();
+//     })
+//     mqttClient.on('error', (error) => {
+//         // console.log(`Cannot connect(${program.protocol}):`, error)
+//         mqttClient.end();
+//         resolve();
+//     })
 
-}
+// }
 
 async function sendMqttMessage(msgTopic,text){
     console.log(`【connecting ${MY_MQTT_ADDRESS}:${MY_MQTT_PORT}】\n`);
@@ -168,7 +168,7 @@ const delay = ms => new Promise((resolve, reject) => setTimeout(resolve,ms));
 
   module.exports = {
     // sendMqttMsg,
-    sendMqttFruitInfo,
+    // sendMqttFruitInfo,
     sendMqttMessage,
     delay,
   };
