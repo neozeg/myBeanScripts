@@ -70,6 +70,9 @@ let lnrun=0;
 
 var fruitInfo;
 
+let MY_MQTT_FRUITINFO_TOPIC = 'topic/jd_fruitinfo'
+if (process.env.MY_MQTT_FRUITINFO_TOPIC)MY_MQTT_FRUITINFO_TOPIC = process.env.MY_MQTT_FRUITINFO_TOPIC;
+
 !(async () => {
 
   await requireConfig();

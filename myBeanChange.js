@@ -272,7 +272,7 @@ if(DisableIndex!=-1){
 }
 
 
-let MY_MQTT_BEANFULLINFO_TOPIC = 'hass/jd_beanfullinfo'
+let MY_MQTT_BEANFULLINFO_TOPIC = 'topic/jd_beanfullinfo'
 if (process.env.MY_MQTT_BEANFULLINFO_TOPIC)MY_MQTT_BEANFULLINFO_TOPIC = process.env.MY_MQTT_BEANFULLINFO_TOPIC;
 
 	

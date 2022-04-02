@@ -32,6 +32,10 @@ if ($.isNode()) {
 } else {
   cookiesArr = [$.getdata('CookieJD'), $.getdata('CookieJD2'), ...jsonParse($.getdata('CookiesJD') || "[]").map(item => item.cookie)].filter(item => !!item);
 }
+
+let MY_MQTT_BEANINFO_TOPIC = 'topic/jd_beaninfo'
+if (process.env.MY_MQTT_BEANINFO_TOPIC)MY_MQTT_BEANINFO_TOPIC = process.env.MY_MQTT_BEANINFO_TOPIC;
+
 !(async () => {
   if (!cookiesArr[0]) {
     $.msg($.name, '【提示】请先获取京东账号一cookie\n直接使用NobyDa的京东签到获取', 'https://bean.m.jd.com/bean/signIndex.action', {"open-url": "https://bean.m.jd.com/bean/signIndex.action"});
