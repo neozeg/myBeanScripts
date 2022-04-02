@@ -59,34 +59,34 @@ const options = {
 }
 
 
-async function sendMqttMsg(text,code){
-    await Promise.all([
-        sendMqttMsgRaw(text,code)
-    ])
-}
+// async function sendMqttMsg(text,code){
+//     await Promise.all([
+//         sendMqttMsgRaw(text,code)
+//     ])
+// }
 
-async function sendMqttMsg(text,code,index){
-    await Promise.all([
-        sendMqttMsgRaw(text,code,index)
-    ])
-}
+// async function sendMqttMsg(text,code,index){
+//     await Promise.all([
+//         sendMqttMsgRaw(text,code,index)
+//     ])
+// }
 
-function sendMqttMsgRaw(text,code){
-    mqttClient = mqtt.connect(`mqtt://${MY_MQTT_ADDRESS}:${MY_MQTT_PORT}`,options);
-    mqttClient.on(`connect`, function (){
-        mqttClient.subscribe(MY_MQTT_BEANINFO_TOPIC,function(err){
-            if(!err){
-                mqttClient.publish(MY_MQTT_BEANINFO_TOPIC, text)
-                mqttClient.publish(MY_MQTT_HASS_LED_TOPIC, `{"code":${code}}`)
-            }
-        });
-    })
+// function sendMqttMsgRaw(text,code){
+//     mqttClient = mqtt.connect(`mqtt://${MY_MQTT_ADDRESS}:${MY_MQTT_PORT}`,options);
+//     mqttClient.on(`connect`, function (){
+//         mqttClient.subscribe(MY_MQTT_BEANINFO_TOPIC,function(err){
+//             if(!err){
+//                 mqttClient.publish(MY_MQTT_BEANINFO_TOPIC, text)
+//                 mqttClient.publish(MY_MQTT_HASS_LED_TOPIC, `{"code":${code}}`)
+//             }
+//         });
+//     })
 
-    mqttClient.on(`message`,function(topic,payload,packet){
-        // console.log(`Topic: ${topic}, Message: ${payload.toString()}, QoS: ${packet.qos}`);
-        console.log(`Exit....`)
-        mqttClient.end();
-    })
+//     mqttClient.on(`message`,function(topic,payload,packet){
+//         // console.log(`Topic: ${topic}, Message: ${payload.toString()}, QoS: ${packet.qos}`);
+//         console.log(`Exit....`)
+//         mqttClient.end();
+//     })
 }
 
 
@@ -156,7 +156,7 @@ async function sendMqttMessage(msgTopic,text){
         })
     
         mqttClient.on('error', (error) => {
-            console.log(`Cannot connect(${program.protocol}):`, error)
+            console.log(`Cannot connect(${MY_MQTT_ADDRESS}):`, error)
             mqttClient.end();
             resolve();
         })
@@ -167,7 +167,7 @@ async function sendMqttMessage(msgTopic,text){
 const delay = ms => new Promise((resolve, reject) => setTimeout(resolve,ms));
 
   module.exports = {
-    sendMqttMsg,
+    // sendMqttMsg,
     sendMqttFruitInfo,
     sendMqttMessage,
     delay,

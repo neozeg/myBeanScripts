@@ -78,7 +78,8 @@ if ($.isNode()) {
         // beanInfo.message = $.message;
         // beanInfo.balance = $.balance;
         // beanInfo.expiredBalance = $.expiredBalance;
-        mqttMsg.sendMqttMsg(JSON.stringify(beanInfo,null),849803271,beanInfo.index);
+        // mqttMsg.sendMqttMsg(JSON.stringify(beanInfo,null),849803271,beanInfo.index);
+        mqttMsg.sendMqttMessage(`${MY_MQTT_BEANINFO_TOPIC}/${beanInfo.index}`,JSON.stringify(beanInfo));
 
     }
   }
